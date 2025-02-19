@@ -1,0 +1,102 @@
+@model WebSAT.Models.Factura
+
+@{
+    ViewData["Title"] = "Crear Factura";
+}
+
+<h2>Crear Factura</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label for="Version">Versión</label>
+        <input type="text" class="form-control" id="Version" name="Version" value="@Model.Version" />
+    </div>
+    <div class="form-group">
+        <label for="Serie">Serie</label>
+        <input type="text" class="form-control" id="Serie" name="Serie" value="@Model.Serie" />
+    </div>
+    <div class="form-group">
+        <label for="Folio">Folio</label>
+        <input type="text" class="form-control" id="Folio" name="Folio" value="@Model.Folio" />
+    </div>
+    <div class="form-group">
+        <label for="Fecha">Fecha</label>
+        <input type="date" class="form-control" id="Fecha" name="Fecha" value="@Model.Fecha.ToString("yyyy-MM-dd")" />
+    </div>
+    <div class="form-group">
+        <label for="Sello">Sello</label>
+        <input type="text" class="form-control" id="Sello" name="Sello" value="@Model.Sello" />
+    </div>
+    <div class="form-group">
+        <label for="FormaPago">Forma de Pago</label>
+        <input type="text" class="form-control" id="FormaPago" name="FormaPago" value="@Model.FormaPago" />
+    </div>
+    <div class="form-group">
+        <label for="NoCertificado">No Certificado</label>
+        <input type="text" class="form-control" id="NoCertificado" name="NoCertificado" value="@Model.NoCertificado" />
+    </div>
+    <div class="form-group">
+        <label for="Certificado">Certificado</label>
+        <input type="text" class="form-control" id="Certificado" name="Certificado" value="@Model.Certificado" />
+    </div>
+    <div class="form-group">
+        <label for="SubTotal">SubTotal</label>
+        <input type="text" class="form-control" id="SubTotal" name="SubTotal" value="@Model.SubTotal" />
+    </div>
+    <div class="form-group">
+        <label for="Moneda">Moneda</label>
+        <input type="text" class="form-control" id="Moneda" name="Moneda" value="@Model.Moneda" />
+    </div>
+    <div class="form-group">
+        <label for="Total">Total</label>
+        <input type="text" class="form-control" id="Total" name="Total" value="@Model.Total" />
+    </div>
+    <div class="form-group">
+        <label for="TipoDeComprobante">Tipo de Comprobante</label>
+        <input type="text" class="form-control" id="TipoDeComprobante" name="TipoDeComprobante" value="@Model.TipoDeComprobante" />
+    </div>
+    <div class="form-group">
+        <label for="MetodoPago">Método de Pago</label>
+        <input type="text" class="form-control" id="MetodoPago" name="MetodoPago" value="@Model.MetodoPago" />
+    </div>
+    <div class="form-group">
+        <label for="LugarExpedicion">Lugar de Expedición</label>
+        <input type="text" class="form-control" id="LugarExpedicion" name="LugarExpedicion" value="@Model.LugarExpedicion" />
+    </div>
+    <div class="form-group">
+        <label for="Emisor">Emisor</label>
+        <input type="text" class="form-control" id="Emisor" name="Emisor" value="@Model.Emisor" />
+    </div>
+    <div class="form-group">
+        <label for="Rfc">RFC del Emisor</label>
+        <input type="text" class="form-control" id="Rfc" name="Rfc" value="@Model.Rfc" />
+    </div>
+    <div class="form-group">
+        <label for="Nombre">Nombre del Emisor</label>
+        <input type="text" class="form-control" id="Nombre" name="Nombre" value="@Model.Nombre" />
+    </div>
+    <div class="form-group">
+        <label for="RegimenFiscal">Régimen Fiscal</label>
+        <input type="text" class="form-control" id="RegimenFiscal" name="RegimenFiscal" value="@Model.RegimenFiscal" />
+    </div>
+    <div class="form-group">
+        <label for="DomicilioFiscal">Domicilio Fiscal</label>
+        <input type="text" class="form-control" id="DomicilioFiscal" name="DomicilioFiscal" value="@Model.DomicilioFiscal" />
+    </div>
+    <div class="form-group">
+        <label for="CodigoPostal">Código Postal</label>
+        <input type="text" class="form-control" id="CodigoPostal" name="CodigoPostal" value="@Model.CodigoPostal" />
+    </div>
+    <div class="form-group">
+        <label for="Receptor">Receptor</label>
+        <input type="text" class="form-control" id="Receptor" name="Receptor" value="@Model.Receptor" />
+    </div>
+    <div class="form-group">
+        <label for="Conceptos">Conceptos</label>
+        <textarea class="form-control" id="Conceptos" name="Conceptos">@Model.Conceptos</textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Crear Factura</button>
+</form>
+
+<a href="@Url.Action("Index", "Facturas")">Volver a la lista de facturas</a>

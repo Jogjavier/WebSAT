@@ -1,0 +1,32 @@
+@model IEnumerable<Factura>
+
+<h2>Facturas</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Versión</th>
+            <th>Serie</th>
+            <th>Folio</th>
+            <th>Fecha</th>
+            <th>Total</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var factura in Model)
+        {
+            <tr>
+                <td>@factura.Version</td>
+                <td>@factura.Serie</td>
+                <td>@factura.Folio</td>
+                <td>@factura.Fecha.ToString("yyyy-MM-dd")</td>
+                <td>@factura.Total</td>
+                <td>
+                    <a href="@Url.Action("Edit", "Facturas", new { id = factura.Id })">Editar</a> |
+                    <a href="@Url.Action("Delete", "Facturas", new { id = factura.Id })">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
