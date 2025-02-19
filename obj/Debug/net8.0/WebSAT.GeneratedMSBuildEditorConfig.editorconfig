@@ -26,8 +26,8 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = /home/esborton/Escritorio/Álvaro/TRSF/WebSAT
 build_property._RazorSourceGeneratorDebug = 
 
-[/home/esborton/Escritorio/Álvaro/TRSF/WebSAT/Views/Facturas/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRmFjdHVyYXMvQ3JlYXRlLmNzaHRtbA==
+[/home/esborton/Escritorio/Álvaro/TRSF/WebSAT/Views/Facturas/create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRmFjdHVyYXMvY3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/esborton/Escritorio/Álvaro/TRSF/WebSAT/Views/Facturas/index.cshtml]

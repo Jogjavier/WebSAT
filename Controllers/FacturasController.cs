@@ -24,7 +24,9 @@ public class FacturasController : Controller
     // GET: Facturas/Create
     public IActionResult Create()
     {
-        return View();
+        var factura = new Factura();
+
+        return View(factura);
     }
 
     // POST: Facturas/Create
