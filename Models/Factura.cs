@@ -45,30 +45,15 @@ namespace WebSAT.Models
         public string ?TipoDeComprobante { get; set; }
 
         [Required]
-        public string ?MetodoPago { get; set; }
+        public string? MetodoPago { get; set; }
 
         [Required]
-        public string ?LugarExpedicion { get; set; }
+        public string? LugarExpedicion { get; set; }
 
         // Relación con Emisor y Receptor
         [ForeignKey("Emisor")]
         public int EmisorId { get; set; }
-        public Emisor ?Emisor { get; set; }
-
-        [Required]
-        public string? Rfc { get; set; }
-
-        [Required]
-        public string? Nombre { get; set; }
-        
-        [Required]
-        public string? RegimenFiscal { get; set; }
-
-        [Required]
-        public string? DomicilioFiscal { get; set; }
-
-        [Required]
-        public string? CodigoPostal { get; set; }
+        public Emisor? Emisor { get; set;}
 
         [ForeignKey("Receptor")]
         public int ReceptorId { get; set; }
