@@ -1,0 +1,112 @@
+@model WebSAT.Models.Factura
+
+@{
+    ViewData["Title"] = "Crear Factura";
+}
+
+<h2>Crear Factura</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="Version"></label>
+        <input asp-for="Version" class="form-control" readonly />
+    </div>
+    
+    <div class="form-group">
+        <label asp-for="Serie"></label>
+        <input asp-for="Serie" class="form-control" />
+    </div>
+    
+    <div class="form-group">
+        <label asp-for="Folio"></label>
+        <input asp-for="Folio" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Fecha"></label>
+        <input asp-for="Fecha" type="date" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="EmisorId"></label>
+        <select asp-for="EmisorId" class="form-control" asp-items="ViewBag.Emisores">
+            <option value="">Seleccione un Emisor</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ReceptorId"></label>
+        <select asp-for="ReceptorId" class="form-control" asp-items="ViewBag.Receptores">
+            <option value="">Seleccione un Receptor</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Rfc"></label>
+        <input asp-for="Rfc" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Nombre"></label>
+        <input asp-for="Nombre" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="RegimenFiscal"></label>
+        <input asp-for="RegimenFiscal" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DomicilioFiscal"></label>
+        <input asp-for="DomicilioFiscal" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CodigoPostal"></label>
+        <input asp-for="CodigoPostal" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SubTotal"></label>
+        <input asp-for="SubTotal" type="number" step="0.01" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Moneda"></label>
+        <input asp-for="Moneda" class="form-control" readonly />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Total"></label>
+        <input asp-for="Total" type="number" step="0.01" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TipoDeComprobante"></label>
+        <input asp-for="TipoDeComprobante" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MetodoPago"></label>
+        <select asp-for="MetodoPago" class="form-control">
+            <option value="Efectivo">Efectivo</option>
+            <option value="Transferencia">Transferencia</option>
+            <option value="Tarjeta">Tarjeta</option>
+            <option value="Cheque">Cheque</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="LugarExpedicion"></label>
+        <input asp-for="LugarExpedicion" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Conceptos"></label>
+        <textarea asp-for="Conceptos" class="form-control"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Crear Factura</button>
+</form>
+
+<a href="@Url.Action("Index", "Facturas")" class="btn btn-secondary">Volver a la lista de facturas</a>
