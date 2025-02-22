@@ -3,7 +3,9 @@ using WebSAT.Data;
 using WebSAT.Models;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-
+using WebSAT.Models.ViewModels;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 public class FacturasController : Controller
 {
@@ -22,24 +24,64 @@ public class FacturasController : Controller
     }
 
     // GET: Facturas/Create
+
     public IActionResult Create()
     {
-        var factura = new Factura();
+        var emisores = _context.Emisores
+            .Select(e => new SelectListItem
+            {
+                Value = e.Id.ToString(),
+                Text = e.Nombre
+            })
+            .ToList();
 
-        return View(factura);
+        var receptores = _context.Receptores
+            .Select(r => new SelectListItem
+            {
+                Value = r.Id.ToString(),
+                Text = r.Nombre
+            })
+            .ToList();
+
+        ViewBag.Emisores = emisores;
+        ViewBag.Receptores = receptores;
+
+        var facturaViewModel = new FacturaViewModel
+        {
+            Version = "4.0",
+            Moneda = "MXN",
+            Fecha = DateTime.Now
+        };
+        return View(facturaViewModel);
     }
 
     // POST: Facturas/Create
     [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Version,Serie,Folio,Fecha,Sello,FormaPago,NoCertificado,Certificado,SubTotal,Moneda,Total,TipoDeComprobante,MetodoPago,LugarExpedicion,Emisor,Rfc,Nombre,RegimenFiscal,DomicilioFiscal,CodigoPostal,Receptor,Conceptos")] Factura factura)
+    public IActionResult Create(FacturaViewModel facturaViewModel)
     {
         if (ModelState.IsValid)
         {
-            _context.Add(factura);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            var factura = new Factura
+            {
+                Version = facturaViewModel.Version ?? "default_version",
+                Serie = facturaViewModel.Serie,
+                Folio = facturaViewModel.Folio,
+                Fecha = facturaViewModel.Fecha,
+                SubTotal = facturaViewModel.SubTotal,
+                Moneda = facturaViewModel.Moneda ?? "default_moneda",
+                Total = facturaViewModel.Total,
+                TipoDeComprobante = facturaViewModel.TipoDeComprobante,
+                MetodoPago = facturaViewModel.MetodoPago,
+                LugarExpedicion = facturaViewModel.LugarExpedicion,
+                EmisorId = facturaViewModel.EmisorId,
+                ReceptorId = facturaViewModel.ReceptorId
+            };
+
+            _context.Facturas.Add(factura);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
         }
-        return View(factura);
+        return View(facturaViewModel);
     }
 }

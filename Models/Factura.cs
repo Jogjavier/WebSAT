@@ -1,3 +1,4 @@
+// Factura.cs
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -25,7 +26,7 @@ namespace WebSAT.Models
         public string? FormaPago { get; set; }
 
         [Required]
-        public string ?NoCertificado { get; set; }
+        public string? NoCertificado { get; set; }
 
         public string? Certificado { get; set; }
 
@@ -42,7 +43,7 @@ namespace WebSAT.Models
         public decimal Total { get; set; }
 
         [Required]
-        public string ?TipoDeComprobante { get; set; }
+        public string? TipoDeComprobante { get; set; }
 
         [Required]
         public string? MetodoPago { get; set; }
@@ -50,14 +51,14 @@ namespace WebSAT.Models
         [Required]
         public string? LugarExpedicion { get; set; }
 
-        // Relación con Emisor y Receptor
         [ForeignKey("Emisor")]
         public int EmisorId { get; set; }
         public Emisor? Emisor { get; set;}
 
         [ForeignKey("Receptor")]
         public int ReceptorId { get; set; }
-        public Receptor ?Receptor { get; set; }
+        public Receptor? Receptor { get; set; }
+
         public List<Concepto> ?Conceptos { get; set; }
     }
 }

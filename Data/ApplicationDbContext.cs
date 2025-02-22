@@ -1,3 +1,5 @@
+// ApplicationDbContext.cs
+
 using Microsoft.EntityFrameworkCore;
 using WebSAT.Models;
 
@@ -11,7 +13,24 @@ namespace WebSAT.Data
         public DbSet<Emisor> Emisores { get; set; }
         public DbSet<Receptor> Receptores { get; set; }
         public DbSet<Concepto> Conceptos { get; set; }
-        public DbSet<Impuesto> Impuestos { get; set; }
-        public DbSet<Complemento> Complementos { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+
+            modelBuilder.Entity<Factura>()
+                .HasOne(f => f.Emisor)
+                .WithMany(e => e.Facturas)
+                .HasForeignKey(f => f.EmisorId);
+
+            modelBuilder.Entity<Factura>()
+                .HasOne(f => f.Receptor)
+                .WithMany(r => r.Facturas)
+                .HasForeignKey(f => f.ReceptorId);
+
+            modelBuilder.Entity<Factura>()
+                .HasMany(f => f.Conceptos)
+                .WithOne(c => c.Factura)
+                .HasForeignKey(c => c.FacturaId);
+        }
     }
 }

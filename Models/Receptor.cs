@@ -1,3 +1,5 @@
+// Receptor.cs
+
 using System.ComponentModel.DataAnnotations;
 
 namespace WebSAT.Models
