@@ -1,10 +1,10 @@
+// FacturasConroller.cs
+
 using Microsoft.AspNetCore.Mvc;
 using WebSAT.Data;
 using WebSAT.Models;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WebSAT.Models.ViewModels;
-using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 public class FacturasController : Controller
@@ -85,3 +85,5 @@ public class FacturasController : Controller
         return View(facturaViewModel);
     }
 }
+
+

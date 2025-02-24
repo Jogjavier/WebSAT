@@ -40,19 +40,29 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(m => m.Emisor.RFC)
-        @Html.TextBoxFor(m => m.Emisor.RFC, new { @class = "form-control" })
+        @if (Model.Emisor != null)
+        {
+            @Html.LabelFor(m => m.Emisor.RFC)
+            @Html.TextBoxFor(m => m.Emisor.RFC, new { @class = "form-control" })
+        }
+        else
+        {
+            <p class="text-danger">Emisor no disponible</p>
+        }
     </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.Emisor.Nombre)
-        @Html.TextBoxFor(m => m.Emisor.Nombre, new { @class = "form-control" })
-    </div>
+    @if (Model.Emisor != null)
+    {
+        <div class="form-group">
+            @Html.LabelFor(m => m.Emisor.Nombre)
+            @Html.TextBoxFor(m => m.Emisor.Nombre, new { @class = "form-control" })
+        </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.Emisor.RegimenFiscal)
-        @Html.TextBoxFor(m => m.Emisor.RegimenFiscal, new { @class = "form-control" })
-    </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Emisor.RegimenFiscal)
+            @Html.TextBoxFor(m => m.Emisor.RegimenFiscal, new { @class = "form-control" })
+        </div>
+    }
 
     <!-- Receptor -->
 

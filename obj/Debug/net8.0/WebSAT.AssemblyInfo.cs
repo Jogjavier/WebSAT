@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WebSAT")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a54f2706dd4844677a725d2f6e13caa9f1e03c03")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5102e53f7110a77b697dc3392da4e5944531c662")]
 [assembly: System.Reflection.AssemblyProductAttribute("WebSAT")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WebSAT")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
