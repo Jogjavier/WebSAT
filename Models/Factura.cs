@@ -1,65 +1,34 @@
 // Factura.cs
 
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WebSAT.Models
+namespace WebSAT.Models;
+
+public class Factura
 {
-    public class Factura
-    {
-        [Key]
-        public int Id { get; set; }
-        
-        [Required]
-        [MaxLength(5)]
-        public string Version { get; set; } = "4.0";
+    [Key]
+    public int Id { get; set; }
+    
+    [ForeignKey("Comprobante")]
+    public Comprobante? Comprobante { get; set;}
 
-        public string? Serie { get; set; }
-        public string? Folio { get; set; }
+    [ForeignKey("Emisor")]
+    public int EmisorId { get; set; }
+    public Emisor? Emisor { get; set;}
 
-        [Required]
-        public DateTime Fecha { get; set; } = DateTime.Now;
+    [ForeignKey("Receptor")]
+    public int ReceptorId { get; set; }
+    public Receptor? Receptor { get; set; }
 
-        public string? Sello { get; set; }
+    [ForeignKey("Receptor")]
+    public Conceptos? Conceptos { get; set; }
 
-        [Required]
-        public string? FormaPago { get; set; }
+    [ForeignKey("Impuestos")]
+    public Impuestos? Impuestos { get; set; }
 
-        [Required]
-        public string? NoCertificado { get; set; }
+    [ForeignKey("Complementos")]
+    public Complementos? Complementos { get; set; }
 
-        public string? Certificado { get; set; }
-
-        [Required]
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal SubTotal { get; set; }
-
-        [Required]
-        [MaxLength(3)]
-        public string Moneda { get; set; } = "MXN";
-
-        [Required]
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal Total { get; set; }
-
-        [Required]
-        public string? TipoDeComprobante { get; set; }
-
-        [Required]
-        public string? MetodoPago { get; set; }
-
-        [Required]
-        public string? LugarExpedicion { get; set; }
-
-        [ForeignKey("Emisor")]
-        public int EmisorId { get; set; }
-        public Emisor? Emisor { get; set;}
-
-        [ForeignKey("Receptor")]
-        public int ReceptorId { get; set; }
-        public Receptor? Receptor { get; set; }
-
-        public List<Concepto> ?Conceptos { get; set; }
     }
-}
+

@@ -1,8 +1,7 @@
-// ConceptoViewModel.cs
+// ConceptosViewModel.cs
 
 namespace WebSAT.Models.ViewModels;
-
-public class ConceptoViewModel
+public class ConceptosViewModel
 {
     public string? ClaveProdServ { get; set; }
     public decimal? Cantidad { get; set; }

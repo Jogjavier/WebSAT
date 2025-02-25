@@ -4,53 +4,42 @@ Este documento describe los campos obligatorios y opcionales necesarios para gen
 
 ---
 
-## 1. Datos generales del CFDI
+## cfdi:Comprobante
 
 ### Campos obligatorios:
 - **Version**: Versión del CFDI (ej. 4.0).
-- **Serie**: Serie de la factura (opcional, pero recomendado para control interno).
-- **Folio**: Número de folio de la factura (opcional, pero recomendado para control interno).
 - **Fecha**: Fecha y hora de expedición (formato: `AAAA-MM-DDThh:mm:ss`).
-- **Sello**: Sello digital del CFDI.
-- **FormaPago**: Condiciones de pago (clave del catálogo del SAT).
-- **NoCertificado**: Número de certificado del CSD (Certificado de Sello Digital).
-- **Certificado**: Certificado del emisor en formato base64.
-- **SubTotal**: Importe antes de impuestos.
+- **TipoDeComprobante**: Tipo de comprobante (por ejemplo, "I" para ingresos, "E" para egresos, etc.).
 - **Moneda**: Moneda del comprobante (clave del catálogo del SAT, ej. MXN).
+- **SubTotal**: Importe antes de impuestos.
 - **Total**: Importe total del comprobante.
-- **TipoDeComprobante**: Tipo de comprobante (ingreso, egreso, traslado, etc.).
-- **MetodoPago**: Método de pago (clave del catálogo del SAT).
 - **LugarExpedicion**: Código postal del lugar de expedición.
+- **FormaPago**: Condiciones de pago (clave del catálogo del SAT).
+- **MetodoPago**: Método de pago (clave del catálogo del SAT).
 
 ---
 
-## 2. Datos del emisor
+## cfdi:Emisor
 
 ### Campos obligatorios:
 - **Rfc**: RFC del emisor.
 - **Nombre**: Nombre o razón social del emisor.
 - **RegimenFiscal**: Régimen fiscal del emisor (clave del catálogo del SAT).
 
-### Campos opcionales:
-- **DomicilioFiscal**: Domicilio fiscal del emisor.
-- **CodigoPostal**: Código postal del domicilio fiscal.
-
 ---
 
-## 3. Datos del receptor
+## cfdi:Receptor
 
 ### Campos obligatorios:
 - **Rfc**: RFC del receptor (si es público general, usar `XAXX010101000`).
 - **Nombre**: Nombre o razón social del receptor.
 - **UsoCFDI**: Uso del CFDI (clave del catálogo del SAT, ej. G03 - Gastos en general).
-
-### Campos opcionales:
 - **Domicilio**: Domicilio del receptor.
 - **CodigoPostal**: Código postal del receptor.
 
 ---
 
-## 4. Conceptos
+## cfdi:Conceptos
 
 ### Campos obligatorios por concepto:
 - **ClaveProdServ**: Clave del producto o servicio (catálogo del SAT).
@@ -60,13 +49,9 @@ Este documento describe los campos obligatorios y opcionales necesarios para gen
 - **ValorUnitario**: Valor unitario del concepto.
 - **Importe**: Importe total del concepto (cantidad * valor unitario).
 
-### Campos opcionales:
-- **Descuento**: Descuento aplicado al concepto.
-- **Impuestos**: Impuestos trasladados o retenidos por concepto.
-
 ---
 
-## 5. Impuestos
+## cfdi:Impuestos
 
 ### Campos obligatorios:
 - **TotalImpuestosTrasladados**: Suma de impuestos trasladados.
@@ -89,19 +74,16 @@ Este documento describe los campos obligatorios y opcionales necesarios para gen
 
 ---
 
-## 6. Complementos
+## cfdi:Complemento
 
 ### Complementos obligatorios (según el caso):
 - **Complemento de pago**: Si el CFDI es un comprobante de pago.
 - **Complemento de comercio exterior**: Si aplica para operaciones de comercio exterior.
 - **Complemento de timbre fiscal**: Generado por el PAC (Proveedor Autorizado de Certificación).
 
-### Estructura:
-- Cada complemento debe incluir los campos requeridos según el Anexo 20 y las reglas de validación del SAT.
-
 ---
 
-## 7. Sello digital y cadena original
+## Sello digital y cadena original
 
 ### Sello digital:
 - Generado con el Certificado de Sello Digital (CSD) del emisor.
@@ -111,16 +93,4 @@ Este documento describe los campos obligatorios y opcionales necesarios para gen
 - Cadena generada a partir de los datos del CFDI, siguiendo el formato especificado por el SAT.
 - Se utiliza para generar el sello digital.
 
----
 
-## 8. Otros datos relevantes
-
-### Campos adicionales:
-- **CondicionesDePago**: Condiciones comerciales de pago.
-- **TipoCambio**: Tipo de cambio (si la moneda es diferente a MXN).
-- **NumCtaPago**: Número de cuenta de pago (opcional).
-
-### Validaciones:
-- Verificar que todos los campos obligatorios estén completos.
-- Asegurar que los valores numéricos estén redondeados correctamente.
-- Validar que las claves del catálogo del SAT sean correctas.---

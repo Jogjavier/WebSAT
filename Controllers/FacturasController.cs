@@ -1,4 +1,4 @@
-// FacturasConroller.cs
+// FacturasController.cs
 
 using Microsoft.AspNetCore.Mvc;
 using WebSAT.Data;
@@ -43,8 +43,8 @@ public class FacturasController : Controller
             })
             .ToList();
 
-        ViewBag.Emisores = emisores;
-        ViewBag.Receptores = receptores;
+        ViewBag.Emisores = new SelectList(emisores, "Value", "Text");
+        ViewBag.Receptores = new SelectList(receptores, "Value", "Text");
 
         var facturaViewModel = new FacturaViewModel
         {
@@ -63,6 +63,8 @@ public class FacturasController : Controller
         {
             var factura = new Factura
             {
+                EmisorId = facturaViewModel.EmisorId,
+                ReceptorId = facturaViewModel.ReceptorId,
                 Version = facturaViewModel.Version ?? "default_version",
                 Serie = facturaViewModel.Serie,
                 Folio = facturaViewModel.Folio,
@@ -71,10 +73,9 @@ public class FacturasController : Controller
                 Moneda = facturaViewModel.Moneda ?? "default_moneda",
                 Total = facturaViewModel.Total,
                 TipoDeComprobante = facturaViewModel.TipoDeComprobante,
+                FormaPago = facturaViewModel.FormaPago,
                 MetodoPago = facturaViewModel.MetodoPago,
-                LugarExpedicion = facturaViewModel.LugarExpedicion,
-                EmisorId = facturaViewModel.EmisorId,
-                ReceptorId = facturaViewModel.ReceptorId
+                LugarExpedicion = facturaViewModel.LugarExpedicion
             };
 
             _context.Facturas.Add(factura);

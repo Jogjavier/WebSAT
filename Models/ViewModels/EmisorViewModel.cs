@@ -1,7 +1,6 @@
 // EmisorViewModel.cs
 
 namespace WebSAT.Models.ViewModels;
-
 public class EmisorViewModel
 {
     public string? RFC { get; set; }
