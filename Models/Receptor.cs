@@ -3,30 +3,20 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace WebSAT.Models;
-
 public class Receptor
 {
     [Key]
     public int Id { get; set; }
-
     [Required]
     [MaxLength(13)]
-    public string? RFC { get; set; }
-
+    public string RFC { get; set; }
     [Required]
     [MaxLength(255)]
-    public string? Nombre { get; set; }
-
+    public string Nombre { get; set; }
     [Required]
-    public string? UsoCFDI { get; set; }
-
+    public string UsoCFDI { get; set; }
     [Required]
-    public string? Domicilio { get; set; }
-
-    [Required]
-    public string? CodigoPostal { get; set; }
-
-    // Relación con Factura
-    public ICollection<Factura> ?Facturas { get; set; }
+    public Domicilio Domicilio { get; set; }
+    public ICollection<Factura> Facturas { get; set; } = new List<Factura>();
 }
 

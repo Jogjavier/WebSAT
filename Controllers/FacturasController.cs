@@ -6,6 +6,9 @@ using WebSAT.Models;
 using Microsoft.EntityFrameworkCore;
 using WebSAT.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+
+namespace WebSAT.Controllers;
 
 public class FacturasController : Controller
 {
@@ -19,8 +22,11 @@ public class FacturasController : Controller
     // GET: Facturas
     public async Task<IActionResult> Index()
     {
-        var facturas = await _context.Facturas.ToListAsync(); 
-        return View(facturas); 
+        var facturas = await _context.Facturas
+                .Include(f => f.Emisor)
+                .Include(f => f.Receptor)
+                .ToListAsync();
+            return View(facturas); 
     }
 
     // GET: Facturas/Create
@@ -48,9 +54,10 @@ public class FacturasController : Controller
 
         var facturaViewModel = new FacturaViewModel
         {
-            Version = "4.0",
-            Moneda = "MXN",
+            Comprobante = new ComprobanteViewModel
+            {
             Fecha = DateTime.Now
+            }
         };
         return View(facturaViewModel);
     }
@@ -61,6 +68,7 @@ public class FacturasController : Controller
     {
         if (ModelState.IsValid)
         {
+            // Llamar un servicio
             var factura = new Factura
             {
                 EmisorId = facturaViewModel.EmisorId,

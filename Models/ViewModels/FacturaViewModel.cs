@@ -10,6 +10,5 @@ public class FacturaViewModel
     public ReceptorViewModel? Receptor { get; set; }
     public ConceptosViewModel? Conceptos { get; set; }
     public ImpuestosViewModel? Impuestos { get; set; }
-    public ComplementosViewModel? Complementos { get; set; } 
 }
 
