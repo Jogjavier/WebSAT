@@ -1,45 +1,45 @@
+// FacturasController.cs
+
 using Microsoft.AspNetCore.Mvc;
-using WebSAT.Data;
-using WebSAT.Models;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Threading.Tasks;
+using WebSAT.Models.ViewModels;
+using WebSAT.Service; 
 
-
-public class FacturasController : Controller
+namespace WebSAT.Controllers
 {
-    private readonly ApplicationDbContext _context;
-
-    public FacturasController(ApplicationDbContext context)
+    public class FacturaController : Controller
     {
-        _context = context;
-    }
+        private readonly FacturaService _facturaService;
+        private readonly ComprobanteService _comprobanteService;
+        private readonly EmisorService _emisorService;
+        private readonly ReceptorService _receptorService;
 
-    // GET: Facturas
-    public async Task<IActionResult> Index()
-    {
-        var facturas = await _context.Facturas.ToListAsync(); 
-        return View(facturas); 
-    }
-
-    // GET: Facturas/Create
-    public IActionResult Create()
-    {
-        var factura = new Factura();
-
-        return View(factura);
-    }
-
-    // POST: Facturas/Create
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Version,Serie,Folio,Fecha,Sello,FormaPago,NoCertificado,Certificado,SubTotal,Moneda,Total,TipoDeComprobante,MetodoPago,LugarExpedicion,Emisor,Rfc,Nombre,RegimenFiscal,DomicilioFiscal,CodigoPostal,Receptor,Conceptos")] Factura factura)
-    {
-        if (ModelState.IsValid)
+        public FacturaController(FacturaService facturaService, ComprobanteService comprobanteService, EmisorService emisorService, ReceptorService receptorService)
         {
-            _context.Add(factura);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            _facturaService = facturaService;
+            _comprobanteService = comprobanteService;
+            _emisorService = emisorService;
         }
-        return View(factura);
+
+        public async Task<IActionResult> Create(FacturaViewModel facturaViewModel, ComprobanteViewModel comprobanteViewModel,EmisorViewModel emisorViewModel, ReceptorViewModel receptorViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var factura = await _facturaService.CrearFacturaAsync(facturaViewModel);
+                await _comprobanteService.CrearComprobanteAsync(comprobanteViewModel);
+                await _emisorService.CrearEmisorAsync(emisorViewModel);
+                await _receptorService.CrearReceptorAsync(receptorViewModel);
+
+                return RedirectToAction("Index");
+            }
+            return View(facturaViewModel);
+        }
     }
+
 }
+
+
+

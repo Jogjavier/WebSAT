@@ -1,112 +1,281 @@
-@model WebSAT.Models.Factura
+@* create.cshtml *@
 
+@model WebSAT.Models.ViewModels.//FacturaViewModel
 @{
     ViewData["Title"] = "Crear Factura";
 }
 
 <h2>Crear Factura</h2>
 
-<form asp-action="Create" method="post">
-    <div class="form-group">
-        <label asp-for="Version"></label>
-        <input asp-for="Version" class="form-control" readonly />
-    </div>
-    
-    <div class="form-group">
-        <label asp-for="Serie"></label>
-        <input asp-for="Serie" class="form-control" />
-    </div>
-    
-    <div class="form-group">
-        <label asp-for="Folio"></label>
-        <input asp-for="Folio" class="form-control" />
-    </div>
+@using (Html.BeginForm("Create", "Facturas", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <!-- cfdi:Comprobante -->
+    <section class="form-group border p-3 mb-3">
+        <h4 class="mb-3">Datos del Comprobante</h4>
 
+        <div class="form-group">
+            @Html.LabelFor(m => m.Version)
+            @Html.TextBoxFor(m => m.Version, new { @class = "form-control", @readonly = "readonly" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Serie)
+            @Html.TextBoxFor(m => m.Serie, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Folio)
+            @Html.TextBoxFor(m => m.Folio, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Fecha)
+            @Html.TextBoxFor(m => m.Fecha, new { type = "datetime-local", @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.TipoDeComprobante)
+            @Html.DropDownListFor(m => m.TipoDeComprobante, new SelectList(new[] {
+                new SelectListItem { Text = "Ingreso (I)", Value = "I" },
+                new SelectListItem { Text = "Egreso (E)", Value = "E" },
+                new SelectListItem { Text = "Traslado (T)", Value = "T" },
+                new SelectListItem { Text = "Pago (P)", Value = "P" }
+            }, "Value", "Text"), "Seleccione el tipo de comprobante", new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(m => m.TipoDeComprobante, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Moneda)
+            @Html.TextBoxFor(m => m.Moneda, new { @class = "form-control", @readonly = "readonly" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.SubTotal)
+            @Html.TextBoxFor(m => m.SubTotal, new { type = "number", step = "0.01", @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(m => m.SubTotal, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Total)
+            @Html.TextBoxFor(m => m.Total, new { type = "number", step = "0.01", @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(m => m.Total, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.LugarExpedicion)
+            @Html.TextBoxFor(m => m.LugarExpedicion, new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(m => m.LugarExpedicion, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.FormaPago)
+            @Html.DropDownListFor(m => m.FormaPago, new SelectList(new[] {
+                new SelectListItem { Text = "Efectivo", Value = "01" },
+                new SelectListItem { Text = "Cheque", Value = "02" },
+                new SelectListItem { Text = "Transferencia", Value = "03" },
+                new SelectListItem { Text = "Tarjeta de Crédito", Value = "04" }
+            }, "Value", "Text"), "Seleccione una forma de pago", new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(m => m.FormaPago, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.MetodoPago)
+            @Html.DropDownListFor(m => m.MetodoPago, new SelectList(new[] {
+                new SelectListItem { Text = "Pago en una sola exhibición", Value = "PUE" },
+                new SelectListItem { Text = "Pago en parcialidades", Value = "PPD" }
+            }, "Value", "Text"), "Seleccione un método de pago", new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(m => m.MetodoPago, "", new { @class = "text-danger" })
+        </div>
+    </section>
+
+    <!-- Sección: cfdi:Emisor -->
+    <section class="form-group border p-3 mb-3">
+        <h4 class="mb-3">Datos del Emisor</h4>
+
+        <div class="form-group">
+            <label class="control-label">Seleccionar Emisor</label>
+            @Html.DropDownListFor(m => m.EmisorId, (SelectList)ViewBag.Emisores, "Seleccione un Emisor", new { @class = "form-control", id = "emisorDropdown" })
+        </div>
+
+        <div class="form-group">
+            <button type="button" class="btn btn-secondary" id="btnNuevoEmisor">Agregar Nuevo Emisor</button>
+        </div>
+
+        <div id="emisorCampos" style="display: none;">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Emisor.RFC)
+                @Html.TextBoxFor(m => m.Emisor.RFC, new { @class = "form-control", id = "emisorRfc", required = "required" })
+                @Html.ValidationMessageFor(m => m.Emisor.RFC, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Emisor.Nombre)
+                @Html.TextBoxFor(m => m.Emisor.Nombre, new { @class = "form-control", id = "emisorNombre", required = "required" })
+                @Html.ValidationMessageFor(m => m.Emisor.Nombre, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Emisor.RegimenFiscal)
+                @Html.TextBoxFor(m => m.Emisor.RegimenFiscal, new { @class = "form-control", id = "emisorRegimenFiscal", required = "required" })
+                @Html.ValidationMessageFor(m => m.Emisor.RegimenFiscal, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección: cfdi:Receptor -->
+    <section class="form-group border p-3 mb-3">
+        <h4 class="mb-3">Datos del Receptor</h4>
+
+        <div class="form-group">
+            <label class="control-label">Seleccionar Receptor</label>
+            @Html.DropDownListFor(m => m.ReceptorId, (SelectList)ViewBag.Receptores, "Seleccione un Receptor", new { @class = "form-control", id = "receptorDropdown" })
+        </div>
+
+        <div class="form-group">
+            <button type="button" class="btn btn-secondary" id="btnNuevoReceptor">Agregar Nuevo Receptor</button>
+        </div>
+
+        <div id="receptorCampos" style="display: none;">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Receptor.RFC)
+                @Html.TextBoxFor(m => m.Receptor.RFC, new { @class = "form-control", id = "receptorRfc", required = "required" })
+                @Html.ValidationMessageFor(m => m.Receptor.RFC, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Receptor.Nombre)
+                @Html.TextBoxFor(m => m.Receptor.Nombre, new { @class = "form-control", id = "receptorNombre", required = "required" })
+                @Html.ValidationMessageFor(m => m.Receptor.Nombre, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Receptor.UsoCFDI)
+                @Html.DropDownListFor(m => m.Receptor.UsoCFDI, new SelectList(new[] {
+                    new SelectListItem { Text = "Gastos en general (G03)", Value = "G03" },
+                    new SelectListItem { Text = "Adquisición de mercancías (G01)", Value = "G01" },
+                    new SelectListItem { Text = "Devoluciones (G02)", Value = "G02" }
+                }, "Value", "Text"), "Seleccione el uso del CFDI", new { @class = "form-control", required = "required" })
+                @Html.ValidationMessageFor(m => m.Receptor.UsoCFDI, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Receptor.Domicilio)
+                @Html.TextBoxFor(m => m.Receptor.Domicilio, new { @class = "form-control", id = "receptorDomicilio", required = "required" })
+                @Html.ValidationMessageFor(m => m.Receptor.Domicilio, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Receptor.CodigoPostal)
+                @Html.TextBoxFor(m => m.Receptor.CodigoPostal, new { @class = "form-control", id = "receptorCodigoPostal", required = "required" })
+                @Html.ValidationMessageFor(m => m.Receptor.CodigoPostal, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección: cfdi:Conceptos -->
+    <section class="form-group border p-3 mb-3">
+        <h4 class="mb-3">Conceptos</h4>
+
+        <div class="form-group">
+            <label class="control-label">Conceptos</label>
+            @for (int i = 0; i < Model.Conceptos?.Count; i++)
+            {
+                <div class="concepto-item border p-3 mb-3">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Conceptos[i].ClaveProdServ)
+                        @Html.TextBoxFor(m => m.Conceptos[i].ClaveProdServ, new { @class = "form-control", placeholder = "Clave Prod/Serv", required = "required" })
+                        @Html.ValidationMessageFor(m => m.Conceptos[i].ClaveProdServ, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Conceptos[i].Cantidad)
+                        @Html.TextBoxFor(m => m.Conceptos[i].Cantidad, new { type = "number", step = "0.01", @class = "form-control", placeholder = "Cantidad", required = "required" })
+                        @Html.ValidationMessageFor(m => m.Conceptos[i].Cantidad, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Conceptos[i].ClaveUnidad)
+                        @Html.TextBoxFor(m => m.Conceptos[i].ClaveUnidad, new { @class = "form-control", placeholder = "Clave Unidad", required = "required" })
+                        @Html.ValidationMessageFor(m => m.Conceptos[i].ClaveUnidad, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Conceptos[i].Descripcion)
+                        @Html.TextBoxFor(m => m.Conceptos[i].Descripcion, new { @class = "form-control", placeholder = "Descripción", required = "required" })
+                        @Html.ValidationMessageFor(m => m.Conceptos[i].Descripcion, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Conceptos[i].ValorUnitario)
+                        @Html.TextBoxFor(m => m.Conceptos[i].ValorUnitario, new { type = "number", step = "0.01", @class = "form-control", placeholder = "Valor Unitario", required = "required" })
+                        @Html.ValidationMessageFor(m => m.Conceptos[i].ValorUnitario, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Conceptos[i].Importe)
+                        @Html.TextBoxFor(m => m.Conceptos[i].Importe, new { type = "number", step = "0.01", @class = "form-control", placeholder = "Importe", required = "required" })
+                        @Html.ValidationMessageFor(m => m.Conceptos[i].Importe, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
+
+    <!-- Botón de envío -->
     <div class="form-group">
-        <label asp-for="Fecha"></label>
-        <input asp-for="Fecha" type="date" class="form-control" />
+        <button type="submit" class="btn btn-primary">Crear Factura</button>
+        @Html.ActionLink("Volver a la lista de facturas", "Index", "Facturas", null, new { @class = "btn btn-secondary" })
     </div>
+}
 
-    <div class="form-group">
-        <label asp-for="EmisorId"></label>
-        <select asp-for="EmisorId" class="form-control" asp-items="ViewBag.Emisores">
-            <option value="">Seleccione un Emisor</option>
-        </select>
-    </div>
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const emisorDropdown = document.getElementById("emisorDropdown");
+            const btnNuevoEmisor = document.getElementById("btnNuevoEmisor");
+            const emisorCampos = document.getElementById("emisorCampos");
 
-    <div class="form-group">
-        <label asp-for="ReceptorId"></label>
-        <select asp-for="ReceptorId" class="form-control" asp-items="ViewBag.Receptores">
-            <option value="">Seleccione un Receptor</option>
-        </select>
-    </div>
+            const receptorDropdown = document.getElementById("receptorDropdown");
+            const btnNuevoReceptor = document.getElementById("btnNuevoReceptor");
+            const receptorCampos = document.getElementById("receptorCampos");
 
-    <div class="form-group">
-        <label asp-for="Rfc"></label>
-        <input asp-for="Rfc" class="form-control" />
-    </div>
+            if (emisorDropdown) {
+                emisorDropdown.addEventListener("change", function () {
+                    if (this.value) {
+                        emisorCampos.style.display = "none";
+                    } else {
+                        emisorCampos.style.display = "block";
+                    }
+                });
+            }
 
-    <div class="form-group">
-        <label asp-for="Nombre"></label>
-        <input asp-for="Nombre" class="form-control" />
-    </div>
+            if (btnNuevoEmisor) {
+                btnNuevoEmisor.addEventListener("click", function () {
+                    emisorCampos.style.display = "block";
+                    if (emisorDropdown) {
+                        emisorDropdown.value = "";
+                    }
+                });
+            }
 
-    <div class="form-group">
-        <label asp-for="RegimenFiscal"></label>
-        <input asp-for="RegimenFiscal" class="form-control" />
-    </div>
+            if (receptorDropdown) {
+                receptorDropdown.addEventListener("change", function () {
+                    if (this.value) {
+                        receptorCampos.style.display = "none";
+                    } else {
+                        receptorCampos.style.display = "block";
+                    }
+                });
+            }
 
-    <div class="form-group">
-        <label asp-for="DomicilioFiscal"></label>
-        <input asp-for="DomicilioFiscal" class="form-control" />
-    </div>
-
-    <div class="form-group">
-        <label asp-for="CodigoPostal"></label>
-        <input asp-for="CodigoPostal" class="form-control" />
-    </div>
-
-    <div class="form-group">
-        <label asp-for="SubTotal"></label>
-        <input asp-for="SubTotal" type="number" step="0.01" class="form-control" />
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Moneda"></label>
-        <input asp-for="Moneda" class="form-control" readonly />
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Total"></label>
-        <input asp-for="Total" type="number" step="0.01" class="form-control" />
-    </div>
-
-    <div class="form-group">
-        <label asp-for="TipoDeComprobante"></label>
-        <input asp-for="TipoDeComprobante" class="form-control" />
-    </div>
-
-    <div class="form-group">
-        <label asp-for="MetodoPago"></label>
-        <select asp-for="MetodoPago" class="form-control">
-            <option value="Efectivo">Efectivo</option>
-            <option value="Transferencia">Transferencia</option>
-            <option value="Tarjeta">Tarjeta</option>
-            <option value="Cheque">Cheque</option>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="LugarExpedicion"></label>
-        <input asp-for="LugarExpedicion" class="form-control" />
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Conceptos"></label>
-        <textarea asp-for="Conceptos" class="form-control"></textarea>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Crear Factura</button>
-</form>
-
-<a href="@Url.Action("Index", "Facturas")" class="btn btn-secondary">Volver a la lista de facturas</a>
+            if (btnNuevoReceptor) {
+                btnNuevoReceptor.addEventListener("click", function () {
+                    receptorCampos.style.display = "block";
+                    if (receptorDropdown) {
+                        receptorDropdown.value = "";
+                    }
+                });
+            }
+        });
+    </script>
+}

@@ -202,3 +202,15 @@
 /home/esborton/Escritorio/Álvaro/TRSF/WebSAT/obj/Debug/net8.0/WebSAT.csproj.Up2Date
 /home/esborton/Escritorio/Álvaro/TRSF/WebSAT/obj/Debug/net8.0/WebSAT.genruntimeconfig.cache
 /home/esborton/Escritorio/Álvaro/TRSF/WebSAT/obj/Debug/net8.0/ref/WebSAT.dll
+C:\Users\52675\source\repos\WebSAT\WebSAT\obj\Debug\net8.0\WebSAT.csproj.AssemblyReference.cache
+C:\Users\52675\source\repos\WebSAT\WebSAT\obj\Debug\net8.0\WebSAT.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\52675\source\repos\WebSAT\WebSAT\obj\Debug\net8.0\WebSAT.AssemblyInfoInputs.cache
+C:\Users\52675\source\repos\WebSAT\WebSAT\obj\Debug\net8.0\WebSAT.AssemblyInfo.cs
+C:\Users\52675\source\repos\WebSAT\WebSAT\obj\Debug\net8.0\WebSAT.csproj.CoreCompileInputs.cache
+C:\Users\52675\source\repos\WebSAT\WebSAT\obj\Debug\net8.0\WebSAT.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\52675\source\repos\WebSAT\WebSAT\obj\Debug\net8.0\WebSAT.RazorAssemblyInfo.cache
+C:\Users\52675\source\repos\WebSAT\WebSAT\obj\Debug\net8.0\WebSAT.RazorAssemblyInfo.cs
+C:\Users\52675\source\repos\WebSAT\WebSAT\obj\Debug\net8.0\WebSAT.sourcelink.json
+C:\Users\52675\source\repos\WebSAT\WebSAT\obj\Debug\net8.0\WebSAT.dll
+C:\Users\52675\source\repos\WebSAT\WebSAT\obj\Debug\net8.0\refint\WebSAT.dll
+C:\Users\52675\source\repos\WebSAT\WebSAT\obj\Debug\net8.0\WebSAT.pdb
