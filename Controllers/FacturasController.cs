@@ -6,22 +6,23 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
 using WebSAT.Models.ViewModels;
-using WebSAT.Service; 
+using WebSAT.Services; 
 
 namespace WebSAT.Controllers
 {
     public class FacturaController : Controller
     {
-        private readonly FacturaService _facturaService;
-        private readonly ComprobanteService _comprobanteService;
-        private readonly EmisorService _emisorService;
-        private readonly ReceptorService _receptorService;
+        private readonly IFacturaService _facturaService;
+        private readonly IComprobanteService _comprobanteService;
+        private readonly IEmisorService _emisorService;
+        private readonly IReceptorService _receptorService;
 
-        public FacturaController(FacturaService facturaService, ComprobanteService comprobanteService, EmisorService emisorService, ReceptorService receptorService)
+        public FacturaController(IFacturaService facturaService, IComprobanteService comprobanteService, IEmisorService emisorService, IReceptorService receptorService)
         {
             _facturaService = facturaService;
             _comprobanteService = comprobanteService;
             _emisorService = emisorService;
+            _receptorService = receptorService;
         }
 
         public async Task<IActionResult> Create(FacturaViewModel facturaViewModel, ComprobanteViewModel comprobanteViewModel,EmisorViewModel emisorViewModel, ReceptorViewModel receptorViewModel)

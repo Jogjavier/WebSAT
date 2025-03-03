@@ -12,14 +12,14 @@ namespace WebSAT.Data
         public DbSet<Factura> Facturas { get; set; }
         public DbSet<Emisor> Emisores { get; set; }
         public DbSet<Receptor> Receptores { get; set; }
-        public DbSet<Concepto> Conceptos { get; set; }
+        public DbSet<Conceptos> Conceptos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
             modelBuilder.Entity<Factura>()
                 .HasOne(f => f.Emisor)
-                .WithMany(e => e.Facturas)
+                .WithMany(e => e.)
                 .HasForeignKey(f => f.EmisorId);
 
             modelBuilder.Entity<Factura>()

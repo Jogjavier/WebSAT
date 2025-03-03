@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using WebSAT.Data;
-using WebSAT.Service;
+using WebSAT.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +10,10 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<FacturaService>();
+builder.Services.AddScoped<IFacturaService,FacturaService>();
+builder.Services.AddScoped<IComprobanteService, ComprobanteService>();
+builder.Services.AddScoped<IEmisorService, EmisorService>();
+builder.Services.AddScoped<IReceptorService, ReceptorService>();
 
 var app = builder.Build();
 
