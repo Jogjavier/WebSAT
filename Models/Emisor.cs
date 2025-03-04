@@ -15,5 +15,6 @@ public class Emisor
     public required string Nombre { get; set; }
     [Required]
     public required string RegimenFiscal { get; set; }
+    public ICollection<Factura> Facturas { get; set; } = new List<Factura>();
 }
 

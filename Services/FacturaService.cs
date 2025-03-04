@@ -1,8 +1,8 @@
 ﻿using WebSAT.Data;
 using WebSAT.Models.ViewModels;
 using WebSAT.Models;
-
-public class FacturaService
+namespace WebSAT.Services;
+public class FacturaService : IFacturaService
 {
     private readonly ApplicationDbContext _context;
 

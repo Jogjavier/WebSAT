@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using WebSAT.Data;
 using WebSAT.Models;
 using WebSAT.Models.ViewModels;
-namespace WebSAT.Service
+namespace WebSAT.Services
 {
-    public class ReceptorService
+    public class ReceptorService : IReceptorService
     {
         private readonly ApplicationDbContext _context;
 

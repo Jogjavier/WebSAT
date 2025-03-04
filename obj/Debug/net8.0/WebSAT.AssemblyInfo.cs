@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WebSAT")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+38a626c2d0bba2a27535b8c8b777f4751e1e39a0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+135390aaefd08cd73a1c51a2d653713f210251f0")]
 [assembly: System.Reflection.AssemblyProductAttribute("WebSAT")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WebSAT")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
